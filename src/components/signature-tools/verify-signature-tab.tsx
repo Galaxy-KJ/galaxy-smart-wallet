@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { verifyMessage as verifyEthMessage } from "ethers";
 import * as bitcoinMessage from "bitcoinjs-message";
-import { Keypair } from "stellar-sdk";
+import { Keypair } from "@stellar/stellar-sdk";
 import { FaKey, FaCheck, FaRedo, FaShieldAlt, FaCloud } from "react-icons/fa"; // Importing icons
 
 type BlockchainType = "ethereum" | "bitcoin" | "stellar";

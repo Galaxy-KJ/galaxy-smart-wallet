@@ -3,7 +3,7 @@ import { sendPayment } from '../../lib/stellar/transactions';
 
 async function testSendPayment() {
   // Replace with a funded testnet secret key (e.g., from Stellar Laboratory)
-  const sourceSecret = 'SDLCVG2JJUJ67OHYQHYXRTAA5UKOKIQ2DKWUXUKSNQYPAJD6CKQGO3JM'; // e.g., SBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  const sourceSecret = 'SDLCVG2JJUJ67OHYQHYXRTAA5UKOKIQ2DKWUXUKSNQYPAJD6CKQGO3JM'; 
   const destination = 'GBJDTATBCDDB4GPBZGQ2XICE5OFZTJQA6EHVR7XVV6KT5WRREIWPPSKE'; // Provided test account
   const amount = '1';
   const memo = 'Test payment';
