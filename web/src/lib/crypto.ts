@@ -1,8 +1,7 @@
 import { openDB } from "idb"
 
-const DB_NAME = "galaxy-wallet-db"
+const DB_NAME = "wallet-db"
 const STORE_NAME = "encrypted-wallet"
-const STORE_KEY = "wallet"
 
 /**
  * Encrypts a private key using password-based encryption with enhanced security measures
@@ -109,10 +108,50 @@ export async function encryptPrivateKey(secretKey: string, password: string): Pr
 export async function saveEncryptedWallet(encrypted: string) {
   const db = await openDB(DB_NAME, 1, {
     upgrade(db) {
-      db.createObjectStore(STORE_NAME)
+      // Create the object store if it doesn't exist
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        const store = db.createObjectStore(STORE_NAME, {
+          keyPath: "id",
+          autoIncrement: true
+        })
+        // Create any indexes if needed
+        store.createIndex("wallet", "wallet", { unique: false })
+      }
     },
   })
-  await db.put(STORE_NAME, encrypted, STORE_KEY)
+  
+  // Store the encrypted wallet data with the proper structure
+  const walletData = {
+    wallet: encrypted,
+    createdAt: new Date().toISOString()
+  }
+  
+  await db.put(STORE_NAME, walletData)
+}
+
+export async function getEncryptedWallet(): Promise<string | null> {
+  const db = await openDB(DB_NAME, 1, {
+    upgrade(db) {
+      // Create the object store if it doesn't exist
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        const store = db.createObjectStore(STORE_NAME, {
+          keyPath: "id",
+          autoIncrement: true
+        })
+        // Create any indexes if needed
+        store.createIndex("wallet", "wallet", { unique: false })
+      }
+    },
+  })
+  
+  const wallets = await db.getAll(STORE_NAME)
+  
+  if (!wallets || wallets.length === 0) {
+    return null
+  }
+  
+  // Return the first wallet's encrypted data
+  return wallets[0].wallet
 }
 
 /**
