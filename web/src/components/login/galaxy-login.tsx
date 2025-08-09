@@ -91,15 +91,23 @@ export function GalaxyLogin({ onLoginSuccess, onRecoveryClick, onClose }: Galaxy
             onClick={onRecoveryClick}
             className="text-purple-400 hover:text-white transition-colors"
           >
-            Don’t have a wallet? <span className="underline">Create one here</span>
+            Don&apos;t have a wallet? <span className="underline">Create one here</span>
           </button>
         ) : (
-          <button
-            onClick={onRecoveryClick}
-            className="text-slate-400 hover:text-white transition-colors"
-          >
-            Want to use a different wallet? <span className="underline">Recover or create</span>
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={onRecoveryClick}
+              className="text-slate-400 hover:text-white transition-colors block"
+            >
+              Want to use a different wallet? <span className="underline">Recover or create</span>
+            </button>
+            <button
+              onClick={() => router.push("/recover")}
+              className="text-purple-400 hover:text-white transition-colors block"
+            >
+              Forgot your password? <span className="underline">Recover with phrase</span>
+            </button>
+          </div>
         )}
       </div>
 
